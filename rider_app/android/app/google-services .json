@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "298513138123",
+    "project_id": "rider-app-a3e42",
+    "storage_bucket": "rider-app-a3e42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298513138123:android:eb2356366499e3b709f64e",
+        "android_client_info": {
+          "package_name": "com.ghanshyam.uberrider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298513138123-r3v5eeo07aa8m3s3e1dpm3iurhmbtgs5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkuGPANc_-zCL6EfnwenSxzafmsor7REg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298513138123-r3v5eeo07aa8m3s3e1dpm3iurhmbtgs5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
