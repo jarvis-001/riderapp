@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rider_app/AllScreens/loginScreen.dart';
 import 'package:rider_app/AllScreens/mainscreen.dart';
+import 'package:rider_app/AllWidgets/progressDialog.dart';
 import 'package:rider_app/main.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -15,11 +15,8 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController nameTextEditingController = TextEditingController();
-
   TextEditingController emailTextEditingController = TextEditingController();
-
   TextEditingController phoneTextEditingController = TextEditingController();
-
   TextEditingController passwordTextEditingController = TextEditingController();
 
   @override
@@ -168,11 +165,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         if (nameTextEditingController.text.length < 3) {
                           displayToastMessage(
                               "Name must be atleast 3 characters", context);
-                        } else if (!emailTextEditingController.text.contains("@")) {
+                        } else if (!emailTextEditingController.text
+                            .contains("@")) {
                           displayToastMessage("Invalid Email Address", context);
-                        } else if (phoneTextEditingController.text.length < 10) {
+                        } else if (phoneTextEditingController.text.length <
+                            10) {
                           displayToastMessage("Invalid Mobile Number", context);
-                        } else if (passwordTextEditingController.text.length < 6) {
+                        } else if (passwordTextEditingController.text.length <
+                            6) {
                           displayToastMessage(
                               " Password must be atleast 6 Characters ",
                               context);
@@ -210,18 +210,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  void registerNewUser(BuildContext context) async 
-  {
+  void registerNewUser(BuildContext context) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return ProgressDialog(message: "Registering, please wait...");
+        });
     final User firebaseUser = (await _firebaseAuth
             .createUserWithEmailAndPassword(
                 email: emailTextEditingController.text,
                 password: passwordTextEditingController.text)
             .catchError((errMsg) {
+      Navigator.pop(context);
       displayToastMessage("Error: " + errMsg.toString(), context);
-    })).user;
+    }))
+        .user;
 
-    if (firebaseUser != null) 
-    {
+    if (firebaseUser != null) {
       //save user info in database
 
       Map userDataMap = {
@@ -232,14 +238,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       usersRef.child(firebaseUser.uid).set(userDataMap);
       displayToastMessage(
           "Congratulations, your acoount has been created", context);
-          Navigator.pushNamedAndRemoveUntil(
+      Navigator.pushNamedAndRemoveUntil(
           context, Mainscreen.idScreen, (route) => false);
-    } 
-
-    else
-    {
+    } else { 
+            Navigator.pop(context);
       displayToastMessage("new user account has not been created", context);
-      
     }
   }
 }
