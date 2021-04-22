@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           displayToastMessage("Invalid Email Address", context);
                         } else if (passwordTextEditingController.text.length <
                             6) {
-                          displayToastMessage(" Password Incorrect ", context);
+                          displayToastMessage(" Incorrect Password ", context);
                         } else {
                           loginAndAuthenticateUser(context);
                         }
