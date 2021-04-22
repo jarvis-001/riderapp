@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (snap.value != null) {
           Navigator.pushNamedAndRemoveUntil(
               context, Mainscreen.idScreen, (route) => false);
-          displayToastMessage("You are logged-in now", context);
+          displayToastMessage("You are logged-in now ", context);
         } else {  
           Navigator.pop(context);
           _firebaseAuth.signOut();
